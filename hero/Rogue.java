@@ -194,11 +194,14 @@ public class Rogue extends Hero {
     @Override
     public int BaseDamageCalculator(char terrain) {
         float baseDamage1 = BACKSTAB_BASE + BACKSTAB_PERLVL * this.getLevel();
-        float baseDamage2 = PARALYSIS_INSTANT + PARALYSIS_INSTLVL * this.getLevel();
-        float total_damage = 0;
-        if(terrain == 'W'){
-            total_damage = (baseDamage1 + baseDamage2) * TERRAIN_BONUS;
+        if(terrain == 'W') {
+            baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
+        float baseDamage2 = PARALYSIS_INSTANT + PARALYSIS_INSTLVL * this.getLevel();
+        if(terrain == 'W') {
+            baseDamage2 = baseDamage2 * TERRAIN_BONUS;
+        }
+        float total_damage = baseDamage1 + baseDamage2;
         return Math.round(total_damage);
 
     }

@@ -5,7 +5,7 @@ import Game.XPAward;
 public class Wizard extends Hero {
     private static final float DR_BASEPERCENT = 0.2f;
     private static final float DR_PERLVL = 0.05f;
-    private static final float DEF_BASE = 0.65f;
+    private static final float DEF_BASE = 0.35f;
     private static final float DEF_PERLEVEL = 0.02f;
     private static final float BASEHP_DEFAULT = 0.3f;
     private static final float IFWIZARD_DR = 1.05f;
@@ -39,18 +39,15 @@ public class Wizard extends Hero {
         }
         float damage = total_percent * Math.min(BASEHP_DEFAULT * hero.getMaxHP(),
                 hero.getCurrentHP());
-
         if(terrain == 'D'){
             damage = damage * TERRAIN_BONUS;
         }
-
         return Math.round(damage);
 
     }
     public int Deflect(Hero hero, char terrain){
         float total_percent = DEF_BASE + this.getLevel() * DEF_PERLEVEL;
         float damage = total_percent * hero.BaseDamageCalculator(terrain);
-
 
         if(hero.getType() == 'R'){
             damage = damage * IFROGUE_DEF;

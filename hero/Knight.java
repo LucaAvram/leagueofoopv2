@@ -146,11 +146,15 @@ public class Knight extends Hero {
     }
     public int BaseDamageCalculator(char terrain){
         float baseDamage1 = EXECUTE_BASEDAMAGE + EXECUTE_DMGPERLVL * this.getLevel();
-        float baseDamage2 = SLAM_BASEDAMAGE + SLAM_DMGPERLEVEL * this.getLevel();
-        float total_damage = baseDamage1 + baseDamage2;
-        if(terrain == 'L'){
-            total_damage = total_damage + TERRAIN_BONUS;
+        if(terrain == 'L') {
+            baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
+        float baseDamage2 = SLAM_BASEDAMAGE + SLAM_DMGPERLEVEL * this.getLevel();
+        if(terrain == 'L') {
+            baseDamage2 = baseDamage2 * TERRAIN_BONUS;
+        }
+        float total_damage = baseDamage1 + baseDamage2;
+
         return Math.round(baseDamage1 + baseDamage2);
     }
 
