@@ -21,6 +21,7 @@ public class Rogue extends Hero {
     private static final int parSet_length = 3;
     private static final int rounds_WOODS = 6;
     private static final int rounds_NORMAl = 3;
+    private int RecentCrit = 0;
 
     public Rogue(char type, int x, int y) {
         super(type, x, y);
@@ -47,8 +48,10 @@ public class Rogue extends Hero {
         if(BackStabCounter % 3 == 0  && terrain == 'W'){
             final_damage = final_damage * BS_MULTIPLIER;
             BackStabCounter = 1;
+            RecentCrit = 1;
             return Math.round(final_damage);
         }
+        RecentCrit = 0;
         BackStabCounter++;
         return Math.round(final_damage);
     }
@@ -194,12 +197,15 @@ public class Rogue extends Hero {
     @Override
     public int BaseDamageCalculator(char terrain) {
         float baseDamage1 = BACKSTAB_BASE + BACKSTAB_PERLVL * this.getLevel();
+        if( RecentCrit == 1 && terrain == 'W') {
+            baseDamage1 = BS_MULTIPLIER * baseDamage1;
+        }
         if(terrain == 'W') {
-            baseDamage1 = baseDamage1 * TERRAIN_BONUS;
+            baseDamage1 = Math.round(baseDamage1 * TERRAIN_BONUS);
         }
         float baseDamage2 = PARALYSIS_INSTANT + PARALYSIS_INSTLVL * this.getLevel();
         if(terrain == 'W') {
-            baseDamage2 = baseDamage2 * TERRAIN_BONUS;
+            baseDamage2 = Math.round(baseDamage2 * TERRAIN_BONUS);
         }
         float total_damage = baseDamage1 + baseDamage2;
         return Math.round(total_damage);
