@@ -16,18 +16,35 @@ public class Game {
 
             for(i=0; i<numberOfHeroes; i++){
                 if(heroes.get(i).getIsIgnited()[0] == 1){
-                    heroes.get(i).setCurrentHP(heroes.get(i).getCurrentHP() - heroes.get(i).getIsIgnited()[1]);
+                    if(heroes.get(i).getCurrentHP() - heroes.get(i).getIsIgnited()[1] < 0) {
+
+                        heroes.get(i).setDead(true);
+
+                    } else {
+                        System.out.println(heroes.get(i).getCurrentHP());
+                        System.out.println(heroes.get(i).getIsIgnited()[1]);
+                        heroes.get(i).setCurrentHP(heroes.get(i).getCurrentHP() - heroes.get(i).getIsIgnited()[1]);
+
+                    }
                     heroes.get(i).getIsIgnited()[2]--;
                 }
                 if(heroes.get(i).getIsParalysed()[0] == 1){
-                    heroes.get(i).setCurrentHP(heroes.get(i).getCurrentHP() - heroes.get(i).getIsParalysed()[1]);
+                    if(heroes.get(i).getCurrentHP() - heroes.get(i).getIsParalysed()[1] < 0) {
+                        System.out.println("kk");
+                        heroes.get(i).setDead(true);
+
+                    } else {
+                        heroes.get(i).setCurrentHP(heroes.get(i).getCurrentHP() - heroes.get(i).getIsParalysed()[1]);
+                    }
                     heroes.get(i).getIsParalysed()[2]--;
 
                 }
             }
 
-            heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
-            heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+            if(!heroes.get(1).isDead() && !heroes.get(0).isDead()) {
+                heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
+                heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+            }
 
             for(i=0; i<numberOfHeroes; i++){
                 if(heroes.get(i).isDead()){

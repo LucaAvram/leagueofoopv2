@@ -1,5 +1,7 @@
 package hero;
 
+import Game.XPAward;
+
 public class Rogue extends Hero {
     private int BackStabCounter = 0;
     private static final float BACKSTAB_BASE = 200;
@@ -42,9 +44,9 @@ public class Rogue extends Hero {
         if(terrain == 'W'){
             final_damage = final_damage * TERRAIN_BONUS;
         }
-        if(BackStabCounter == 3 && terrain == 'W'){
+        if(BackStabCounter % 3 == 0  && terrain == 'W'){
             final_damage = final_damage * BS_MULTIPLIER;
-            BackStabCounter = 0;
+            BackStabCounter = 1;
             return Math.round(final_damage);
         }
         BackStabCounter++;
@@ -77,10 +79,14 @@ public class Rogue extends Hero {
     }
     @Override
     public void attack(Wizard wizard, char terrain) {
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = BackStab(wizard, terrain) + Paralysis(wizard, terrain);
         if(damage > wizard.getCurrentHP()){
             wizard.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
+
             return;
         }
         else{
@@ -102,10 +108,14 @@ public class Rogue extends Hero {
 
     @Override
     public void attack(Pyromancer pyromancer, char terrain) {
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = BackStab(pyromancer, terrain) + Paralysis(pyromancer, terrain);
         if(damage > pyromancer.getCurrentHP()){
             pyromancer.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, pyromancer));
+
             return;
         }
         else{
@@ -126,10 +136,14 @@ public class Rogue extends Hero {
 
     @Override
     public void attack(Knight knight, char terrain) {
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = BackStab(knight, terrain) + Paralysis(knight, terrain);
         if(damage > knight.getCurrentHP()){
             knight.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, knight));
+
             return;
         }
         else{
@@ -150,10 +164,14 @@ public class Rogue extends Hero {
 
     @Override
     public void attack(Rogue rogue, char terrain) {
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = BackStab(rogue, terrain) + Paralysis(rogue, terrain);
         if(damage > rogue.getCurrentHP()){
             rogue.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, rogue));
+
             return;
         }
         else{

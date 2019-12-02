@@ -1,5 +1,7 @@
 package hero;
 
+import Game.XPAward;
+
 public class Pyromancer extends Hero {
     private static final float FIREBLAST_BASEDAMAGE = 350;
     private static final float FIREBLAST_DMGPERLVL = 50;
@@ -72,10 +74,15 @@ public class Pyromancer extends Hero {
     }
 
     public void attack(Wizard wizard, char terrain){
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
+
         damage = FireBlast(wizard, terrain) + Ignite(wizard, terrain);
         if(damage >= wizard.getCurrentHP()){
             wizard.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
+
         }
         else{
             wizard.setCurrentHP(wizard.getCurrentHP() - damage);
@@ -88,10 +95,14 @@ public class Pyromancer extends Hero {
         wizard.setIsIgnited(igniteSet);
     }
     public void attack(Rogue rogue, char terrain){
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = FireBlast(rogue, terrain) + Ignite(rogue, terrain);
         if(damage >= rogue.getCurrentHP()){
             rogue.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, rogue));
+
         }
         else{
             rogue.setCurrentHP(rogue.getCurrentHP() - damage);
@@ -105,10 +116,14 @@ public class Pyromancer extends Hero {
         rogue.setIsIgnited(igniteSet);
     }
     public void attack(Knight knight, char terrain){
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = FireBlast(knight, terrain) + Ignite(knight, terrain);
         if(damage >= knight.getCurrentHP()){
             knight.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, knight));
+
         }
         else{
             knight.setCurrentHP(knight.getCurrentHP() - damage);
@@ -121,10 +136,14 @@ public class Pyromancer extends Hero {
         knight.setIsIgnited(igniteSet);
     }
     public void attack(Pyromancer pyromancer, char terrain){
+        XPAward xpAward = new XPAward();
+
         int damage = 0;
         damage = FireBlast(pyromancer, terrain) + Ignite(pyromancer, terrain);
         if(damage >= pyromancer.getCurrentHP()){
             pyromancer.setDead(true);
+            this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, pyromancer));
+
         }
         else{
             pyromancer.setCurrentHP(pyromancer.getCurrentHP() - damage);
