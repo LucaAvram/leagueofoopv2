@@ -41,9 +41,21 @@ public class Game {
             }
 
             if(!heroes.get(1).isDead() && !heroes.get(0).isDead()) {
-                heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
-                heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+
+                if(heroes.get(1).getType() == 'W') {
+                    heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+                    heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
+                }
+                else if(heroes.get(0).getType() == 'W'){
+                    heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
+                    heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+                }
+                else{
+                    heroes.get(1).isAttackedBy(heroes.get(0), map[0][0]);
+                    heroes.get(0).isAttackedBy(heroes.get(1), map[0][0]);
+                }
             }
+
 
             for(i=0; i<numberOfHeroes; i++){
                 if(heroes.get(i).isDead()){

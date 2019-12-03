@@ -160,10 +160,12 @@ public class Pyromancer extends Hero {
         if( terrain == 'V') {
             baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
+        baseDamage1 = Math.round(baseDamage1);
         float baseDamage2 = IGNITE_BASEDAMAGE + IGNITE_DMGPERLEVEL * this.getLevel();
         if( terrain == 'V') {
             baseDamage2 = baseDamage2 * TERRAIN_BONUS;
         }
+        baseDamage2 = Math.round(baseDamage2);
         float total_damage = baseDamage1 + baseDamage2;
 
         return Math.round(total_damage);

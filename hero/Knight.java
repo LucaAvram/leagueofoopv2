@@ -2,6 +2,8 @@ package hero;
 
 import Game.XPAward;
 
+import javax.imageio.ImageTranscoder;
+
 public class Knight extends Hero {
     private static final float HP_LIMIT = 0.2f;
     private static final float LEVEL_MULTIPIER = 0.01f;
@@ -149,10 +151,12 @@ public class Knight extends Hero {
         if(terrain == 'L') {
             baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
+        baseDamage1 = Math.round(baseDamage1);
         float baseDamage2 = SLAM_BASEDAMAGE + SLAM_DMGPERLEVEL * this.getLevel();
         if(terrain == 'L') {
             baseDamage2 = baseDamage2 * TERRAIN_BONUS;
         }
+        baseDamage2 = Math.round(baseDamage2);
         float total_damage = baseDamage1 + baseDamage2;
 
         return Math.round(baseDamage1 + baseDamage2);
