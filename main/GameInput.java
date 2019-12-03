@@ -3,7 +3,7 @@ package main;
 import hero.Hero;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class GameInput {
     // DO NOT MODIFY
@@ -26,42 +26,43 @@ public class GameInput {
 
     }
 
-    public GameInput(int lines, int columns, char[][] map, int numberOfHeroes, ArrayList<Hero> heroes,
-                                    int numberOfRounds,ArrayList<String> moves) {
+    public GameInput(final int lines, final int columns, final char[][] map,
+                     final int numberOfHeroes, final ArrayList<Hero> heroes,
+                     final int numberOfRounds, final ArrayList<String> moves) {
         this.lines = lines;
         this.columns = columns;
         this.map = map;
         this.numberOfHeroes = numberOfHeroes;
         this.heroes = heroes;
         this.numberOfRounds = numberOfRounds;
-        this.moves=moves;
+        this.moves = moves;
     }
 
-    public int getLines() {
+    public final int getLines() {
         return lines;
     }
 
-    public int getColumns() {
+    public final int getColumns() {
         return columns;
     }
 
-    public char[][] getMap() {
+    public final char[][] getMap() {
         return map;
     }
 
-    public int getNumberOfHeroes() {
+    public final int getNumberOfHeroes() {
         return numberOfHeroes;
     }
 
-    public ArrayList<Hero> getHeroes() {
+    public final ArrayList<Hero> getHeroes() {
         return heroes;
     }
 
-    public int getNumberOfRounds() {
+    public final int getNumberOfRounds() {
         return numberOfRounds;
     }
 
-    public ArrayList<String> getMoves() {
+    public final ArrayList<String> getMoves() {
         return moves;
     }
 }

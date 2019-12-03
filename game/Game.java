@@ -10,8 +10,10 @@ public class Game {
     private static final int XPTOBEAT = 250;
     private static final int XPDIV = 50;
     private int level;
-    public final void gameStart(ArrayList<Hero> heroes, char[][] map, ArrayList<String> moves,
-                                int numberOfRounds, int numberOfHeroes, String[] args) throws IOException {
+    public final void gameStart(final ArrayList<Hero> heroes, final char[][] map,
+                                final ArrayList<String> moves,
+                                final int numberOfRounds, final int numberOfHeroes,
+                                final String[] args) throws IOException {
         int round;
         int i;
         int j;
@@ -73,7 +75,7 @@ public class Game {
             }
 
             for (i = 0; i < numberOfHeroes; i++) {
-                if (heroes.get(i).getIsSlammed() == 1 ) {
+                if (heroes.get(i).getIsSlammed() == 1) {
                     heroes.get(i).setIsSlammed(0);
                 }
             }
@@ -99,11 +101,11 @@ public class Game {
 
                         if (heroes.get(i).getCurrentXP() > XPTOBEAT) {
                             level = (heroes.get(i).getCurrentXP() - XPTOBEAT) / XPDIV + 1;
-                            heroes.get(i).LevelUP(level);
+                            heroes.get(i).levelUP(level);
                         }
                         if (heroes.get(j).getCurrentXP() > XPTOBEAT) {
                             level = (heroes.get(j).getCurrentXP() - XPTOBEAT) / XPDIV + 1;
-                            heroes.get(j).LevelUP(level);
+                            heroes.get(j).levelUP(level);
                         }
                     }
 

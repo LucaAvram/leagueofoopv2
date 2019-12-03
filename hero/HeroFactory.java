@@ -7,79 +7,76 @@ public class HeroFactory {
     private static class HeroHP  {
 
 
-        private static final int KnightHP = 900;
-        private static final int PyromancerHP = 500;
-        private static final int WizardHP = 400;
-        private static final int RogueHP = 600;
+        private static final int KNIGHT_HP = 900;
+        private static final int PYROMANCER_HP = 500;
+        private static final int WIZARD_HP = 400;
+        private static final int ROGUE_HP = 600;
 
 
-        private static final int KnightPERLVL = 80;
-        private static final int PyromancerPERLVL = 50;
-        private static final int WizardPERLVL = 30;
-        private static final int RogurPERLVL = 40;
+        private static final int KNIGHT_PERLVL = 80;
+        private static final int PYROMANCER_PERLVL = 50;
+        private static final int WIZARD_PERLVL = 30;
+        private static final int ROGUR_PERLVL = 40;
 
-        public static int getKnightHP() {
-            return KnightHP;
+        public static int getKnightHp() {
+            return KNIGHT_HP;
         }
 
-        public static int getPyromancerHP() {
-            return PyromancerHP;
+        public static int getPyromancerHp() {
+            return PYROMANCER_HP;
         }
 
-        public static int getWizardHP() {
-            return WizardHP;
+        public static int getWizardHp() {
+            return WIZARD_HP;
         }
 
-        public static int getRogueHP() {
-            return RogueHP;
+        public static int getRogueHp() {
+            return ROGUE_HP;
         }
 
-        public static int getKnightPERLVL() {
-            return KnightPERLVL;
+        public static int getKnightPerlvl() {
+            return KNIGHT_PERLVL;
         }
 
-        public static int getPyromancerPERLVL() {
-            return PyromancerPERLVL;
+        public static int getPyromancerPerlvl() {
+            return PYROMANCER_PERLVL;
         }
 
-        public static int getWizardPERLVL() {
-            return WizardPERLVL;
+        public static int getWizardPerlvl() {
+            return WIZARD_PERLVL;
         }
 
-        public static int getRogurPERLVL() {
-            return RogurPERLVL;
+        public static int getRogurPerlvl() {
+            return ROGUR_PERLVL;
         }
 
     }
 
-    public int getHeroHP(char type){
-        int hp=0;
-        if(type == 'W'){
-            hp = HeroHP.getWizardHP();
-        }
-        else if(type == 'P'){
-            hp=HeroHP.getPyromancerHP();
-        }
-        else if(type == 'K'){
-            hp=HeroHP.getKnightHP();
-        }
-        else if(type == 'R'){
-            hp=HeroHP.getRogueHP();
+    public final int getHeroHP(final char type) {
+        int hp = 0;
+        if (type == 'W') {
+            hp = HeroHP.getWizardHp();
+        } else if (type == 'P') {
+            hp = HeroHP.getPyromancerHp();
+        } else if (type == 'K') {
+            hp = HeroHP.getKnightHp();
+        } else if (type == 'R') {
+            hp = HeroHP.getRogueHp();
         }
 
         return hp;
     }
 
-    public int getHP_perLevel(char type) {
+    public final int getHPperLevel(final char type) {
         int hp = 0;
         if (type == 'W') {
-            hp = HeroHP.getWizardPERLVL();
+            hp = HeroHP.getWizardPerlvl();
         } else if (type == 'P') {
-            hp = HeroHP.getPyromancerPERLVL();
+            hp = HeroHP.getPyromancerPerlvl();
         } else if (type == 'K') {
-            hp = HeroHP.getKnightPERLVL();
+            hp = HeroHP.getKnightPerlvl();
         } else if (type == 'R') {
-            hp = HeroHP.getRogurPERLVL();
+            hp = HeroHP.getRogurPerlvl();
         }
 
         return hp;

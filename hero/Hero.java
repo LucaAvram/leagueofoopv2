@@ -1,139 +1,136 @@
 package hero;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 public abstract class Hero {
-
+    private static final int IGNITE_PARALYSIS_HELPER = 3;
     private char type;
     private int x;
     private int y;
     private int level;
     private int currentXP;
     private int currentHP;
-    private int MaxHP;
+    private int maxHP;
     private int[] isParalysed; // 0 - yes/no, 1 - damage , 2- time left
-    private int isSlammed ; // 0 - yes/no
-    private int[] isIgnited ;  // 0 - yes/no , 1 - damage, 2 - time left
+    private int isSlammed; // 0 - yes/no
+    private int[] isIgnited;  // 0 - yes/no , 1 - damage, 2 - time left
     private boolean isDead;
 
 
 
 
-    public Hero(char type,int x,int y) {
+    public Hero(final char type, final int x, final int y) {
         HeroFactory info = HeroFactory.getInstance();
-        this.type=type;
-        this.x=x;
-        this.y=y;
-        level=0;
-        currentXP=0;
-        MaxHP = info.getHeroHP(type);
-        currentHP = MaxHP;
-        isParalysed = new int[3];
+        this.type = type;
+        this.x = x;
+        this.y = y;
+        level = 0;
+        currentXP = 0;
+        maxHP = info.getHeroHP(type);
+        currentHP = maxHP;
+        isParalysed = new int[IGNITE_PARALYSIS_HELPER];
         isSlammed = 0;
-        isIgnited = new int[3];
+        isIgnited = new int[IGNITE_PARALYSIS_HELPER];
         isDead = false;
     }
 
-    public char getType() {
+    public final char getType() {
         return type;
     }
 
-    public int getX() {
+    public final int getX() {
         return x;
     }
 
-    public int getY() {
+    public final int getY() {
         return y;
     }
 
-    public int getLevel() {
+    public final int getLevel() {
         return level;
     }
 
-    public int getCurrentXP() {
+    public final int getCurrentXP() {
         return currentXP;
     }
 
-    public int getCurrentHP() {
+    public final int getCurrentHP() {
         return currentHP;
     }
 
-    public int getMaxHP() {
-        return MaxHP;
+    public final int getMaxHP() {
+        return maxHP;
     }
 
-    public int[] getIsParalysed() {
+    public final int[] getIsParalysed() {
         return isParalysed;
     }
 
-    public int getIsSlammed() {
+    public final int getIsSlammed() {
         return isSlammed;
     }
 
-    public int[] getIsIgnited() {
+    public final int[] getIsIgnited() {
         return isIgnited;
     }
 
-    public boolean isDead() {
+    public final boolean isDead() {
         return isDead;
     }
 
-    public void setIsParalysed(int[] isParalysed) {
+    public final void setIsParalysed(final int[] isParalysed) {
         this.isParalysed = isParalysed;
     }
 
-    public void setIsSlammed(int isSlammed) {
+    public final void setIsSlammed(final int isSlammed) {
         this.isSlammed = isSlammed;
     }
 
-    public void setIsIgnited(int[] isIgnited) {
+    public final void setIsIgnited(final int[] isIgnited) {
         this.isIgnited = isIgnited;
     }
 
-    public void setType(char type) {
+    public final void setType(final char type) {
         this.type = type;
     }
 
-    public void setX(int x) {
+    public final void setX(final int x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public final void setY(final int y) {
         this.y = y;
     }
 
-    public void setLevel(int level) {
+    public final void setLevel(final int level) {
         this.level = level;
     }
 
-    public void setCurrentXP(int currentXP) {
+    public final void setCurrentXP(final int currentXP) {
         this.currentXP = currentXP;
     }
 
-    public void setCurrentHP(int currentHP) {
+    public final void setCurrentHP(final int currentHP) {
         this.currentHP = currentHP;
     }
 
-    public void setMaxHP(int maxHP) {
-        MaxHP = maxHP;
+    public final void setMaxHP(final int maxHP) {
+        this.maxHP = maxHP;
     }
 
-    public void LevelUP(int level){
+    public final void levelUP(final int lvl) {
         HeroFactory info = HeroFactory.getInstance();
-        this.setLevel(this.getLevel() + level );
-            this.setMaxHP( this.getMaxHP() + level * info.getHP_perLevel(this.getType()));
+        this.setLevel(this.getLevel() + lvl);
+            this.setMaxHP(this.getMaxHP() + lvl * info.getHPperLevel(this.getType()));
         this.setCurrentHP(this.getMaxHP());
 
     }
 
-    public void setDead(boolean isDead){
-        this.isDead = isDead;
+    public final void setDead(final boolean dead) {
+        this.isDead = dead;
     }
     public abstract void isAttackedBy(Hero hero, char terrain);
     public abstract void attack(Wizard wizard, char terrain);
     public abstract void attack(Pyromancer pyromancer, char terrain);
     public abstract void attack(Knight knight, char terrain);
     public abstract void attack(Rogue rogue, char terrain);
-    public abstract int BaseDamageCalculator(char terrain);
+    public abstract int baseDamageCalculator(char terrain);
 }

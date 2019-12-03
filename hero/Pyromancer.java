@@ -22,107 +22,108 @@ public class Pyromancer extends Hero {
     private static final int XPTOBEAT = 250;
     private static final int XPDIV = 50;
     private int level;
+    private static final int IGNITEDETECTOR = 3;
 
-    public Pyromancer(char type, int x, int y) {
+    public Pyromancer(final char type, final int x, final int y) {
         super(type, x, y);
     }
 
-    public int FireBlast(Hero hero, char terrain){
-        float starting_damage;
-        starting_damage = FIREBLAST_BASEDAMAGE + this.getLevel() * FIREBLAST_DMGPERLVL;
-        float final_damage = 0;
-        if(hero.getType() == 'W'){
-            final_damage = starting_damage * IFWIZARD_FB;
+    public final int fireBlast(final Hero hero, final char terrain) {
+        float startingDamage;
+        startingDamage = FIREBLAST_BASEDAMAGE + this.getLevel() * FIREBLAST_DMGPERLVL;
+        float finalDamage = 0;
+        if (hero.getType() == 'W') {
+            finalDamage = startingDamage * IFWIZARD_FB;
         }
-        if(hero.getType() == 'K'){
-            final_damage = starting_damage * IFKNIGHT_FB;
+        if (hero.getType() == 'K') {
+            finalDamage = startingDamage * IFKNIGHT_FB;
         }
-        if(hero.getType() == 'R'){
-            final_damage = starting_damage * IFROGUE_FB;
+        if (hero.getType() == 'R') {
+            finalDamage = startingDamage * IFROGUE_FB;
         }
-        if(hero.getType() == 'P'){
-            final_damage = starting_damage * IFPYRO_FB;
+        if (hero.getType() == 'P') {
+            finalDamage = startingDamage * IFPYRO_FB;
         }
-        if(terrain == 'V'){
-            final_damage = final_damage * TERRAIN_BONUS;
+        if (terrain == 'V') {
+            finalDamage = finalDamage * TERRAIN_BONUS;
         }
 
-        return Math.round(final_damage);
+        return Math.round(finalDamage);
     }
-    public int Ignite(Hero hero, char terrain){
-        float starting_damage;
-        starting_damage = IGNITE_BASEDAMAGE + this.getLevel() * IGNITE_DMGPERLEVEL;
-        float final_damage = 0;
-        if(hero.getType() == 'W'){
-            final_damage = starting_damage * IFWIZARD_IGN;
+    public final int ignite(final Hero hero, final char terrain) {
+        float startingDamage;
+        startingDamage = IGNITE_BASEDAMAGE + this.getLevel() * IGNITE_DMGPERLEVEL;
+        float finalDamage = 0;
+        if (hero.getType() == 'W') {
+            finalDamage = startingDamage * IFWIZARD_IGN;
         }
-        if(hero.getType() == 'K'){
-            final_damage = starting_damage * IFKNIGHT_IGN;
+        if (hero.getType() == 'K') {
+            finalDamage = startingDamage * IFKNIGHT_IGN;
         }
-        if(hero.getType() == 'R'){
-            final_damage = starting_damage * IFROGUE_IGN;
+        if (hero.getType() == 'R') {
+            finalDamage = startingDamage * IFROGUE_IGN;
         }
-        if(hero.getType() == 'P'){
-            final_damage = starting_damage * IFPYRO_IGN;
+        if (hero.getType() == 'P') {
+            finalDamage = startingDamage * IFPYRO_IGN;
         }
-        if(terrain == 'V'){
-            final_damage = final_damage * TERRAIN_BONUS;
+        if (terrain == 'V') {
+            finalDamage = finalDamage * TERRAIN_BONUS;
         }
 
-        return Math.round(final_damage);
+        return Math.round(finalDamage);
     }
 
-    public void isAttackedBy(Hero hero, char terrain) {
+    public final void isAttackedBy(final Hero hero, final char terrain) {
         hero.attack(this, terrain);
     }
 
-    public void attack(Wizard wizard, char terrain){
+    public final void attack(final Wizard wizard, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
 
-        damage = FireBlast(wizard, terrain) + Ignite(wizard, terrain);
-        if(damage >= wizard.getCurrentHP()){
+        damage = fireBlast(wizard, terrain) + ignite(wizard, terrain);
+        if (damage >= wizard.getCurrentHP()) {
             wizard.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
 
-        }
-        else{
+        } else {
             wizard.setCurrentHP(wizard.getCurrentHP() - damage);
         }
-        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFWIZARD_IGN);
-        int[] igniteSet = new int[3];
+        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL
+                * this.getLevel()) * IFWIZARD_IGN);
+        int[] igniteSet = new int[IGNITEDETECTOR];
         igniteSet[0] = 1;
         igniteSet[1] = igniteDamage;
         igniteSet[2] = IGNITE_ROUNDS;
         wizard.setIsIgnited(igniteSet);
     }
-    public void attack(Rogue rogue, char terrain){
+    public final void attack(final Rogue rogue, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = FireBlast(rogue, terrain) + Ignite(rogue, terrain);
-        if(damage >= rogue.getCurrentHP()){
+        damage = fireBlast(rogue, terrain) + ignite(rogue, terrain);
+        if (damage >= rogue.getCurrentHP()) {
             rogue.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, rogue));
 
-        }
-        else{
+        } else {
             rogue.setCurrentHP(rogue.getCurrentHP() - damage);
         }
-        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFROGUE_IGN);
+        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL
+                * this.getLevel()) * IFROGUE_IGN);
 
-        int[] igniteSet = new int[3];
+        int[] igniteSet = new int[IGNITEDETECTOR];
         igniteSet[0] = 1;
         igniteSet[1] = igniteDamage;
         igniteSet[2] = IGNITE_ROUNDS;
         rogue.setIsIgnited(igniteSet);
     }
-    public void attack(Knight knight, char terrain) {
+    public final void attack(final Knight knight, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = FireBlast(knight, terrain) + Ignite(knight, terrain);
+        damage = fireBlast(knight, terrain) + ignite(knight, terrain);
         if (damage >= knight.getCurrentHP()) {
             knight.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, knight));
@@ -130,18 +131,19 @@ public class Pyromancer extends Hero {
         } else {
             knight.setCurrentHP(knight.getCurrentHP() - damage);
         }
-        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFKNIGHT_IGN);
-        int[] igniteSet = new int[3];
+        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL
+                * this.getLevel()) * IFKNIGHT_IGN);
+        int[] igniteSet = new int[IGNITEDETECTOR];
         igniteSet[0] = 1;
         igniteSet[1] = igniteDamage;
         igniteSet[2] = IGNITE_ROUNDS;
         knight.setIsIgnited(igniteSet);
     }
-    public void attack(Pyromancer pyromancer, char terrain){
+    public final void attack(final Pyromancer pyromancer, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = FireBlast(pyromancer, terrain) + Ignite(pyromancer, terrain);
+        damage = fireBlast(pyromancer, terrain) + ignite(pyromancer, terrain);
         if (damage >= pyromancer.getCurrentHP()) {
             pyromancer.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, pyromancer));
@@ -150,16 +152,17 @@ public class Pyromancer extends Hero {
         } else {
             pyromancer.setCurrentHP(pyromancer.getCurrentHP() - damage);
         }
-        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFPYRO_IGN);
-        int[] igniteSet = new int[3];
+        int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL
+                * this.getLevel()) * IFPYRO_IGN);
+        int[] igniteSet = new int[IGNITEDETECTOR];
         igniteSet[0] = 1;
         igniteSet[1] = igniteDamage;
         igniteSet[2] = IGNITE_ROUNDS;
         pyromancer.setIsIgnited(igniteSet);
     }
-    public int BaseDamageCalculator(char terrain) {
+    public final int baseDamageCalculator(final char terrain) {
         float baseDamage1 = FIREBLAST_BASEDAMAGE + FIREBLAST_DMGPERLVL * this.getLevel();
-        if( terrain == 'V') {
+        if (terrain == 'V') {
             baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
         baseDamage1 = Math.round(baseDamage1);
@@ -168,9 +171,9 @@ public class Pyromancer extends Hero {
             baseDamage2 = baseDamage2 * TERRAIN_BONUS;
         }
         baseDamage2 = Math.round(baseDamage2);
-        float total_damage = baseDamage1 + baseDamage2;
+        float totalDamage = baseDamage1 + baseDamage2;
 
-        return Math.round(total_damage);
+        return Math.round(totalDamage);
     }
 
 

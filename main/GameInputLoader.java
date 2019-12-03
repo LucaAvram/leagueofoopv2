@@ -1,9 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
+
 import fileio.FileSystem;
 import hero.*;
 
@@ -17,13 +15,13 @@ public class GameInputLoader {
         mOutputPath = outputPath;
     }
 
-    public GameInput load() {
-        int lines=0;
-        int columns=0;
+    public final GameInput load() {
+        int lines = 0;
+        int columns = 0;
         char[][] map = null;
-        int numberOfHeroes=0;
+        int numberOfHeroes = 0;
         ArrayList<Hero> heroes = new ArrayList<>();
-        int numberOfRounds=0;
+        int numberOfRounds = 0;
         ArrayList<String> moves = new ArrayList<>();
 
 
@@ -35,32 +33,32 @@ public class GameInputLoader {
             map = new char[lines][columns];
             int i;
             int j;
-            for(i=0; i<lines; i++){
+            for (i = 0; i < lines; i++) {
                 String word = fs.nextWord();
 
-                for(j=0; j<columns; j++){
+                for (j = 0; j < columns; j++) {
 
-                    map[i][j]= word.charAt(j);
+                    map[i][j] = word.charAt(j);
                 }
             }
             numberOfHeroes = fs.nextInt();
-            for(i=0; i<numberOfHeroes; i++){
+            for (i = 0; i < numberOfHeroes; i++) {
                 char type = fs.nextWord().charAt(0);
-                if(type == 'W') {
+                if (type == 'W') {
                     heroes.add(new Wizard(type, fs.nextInt(), fs.nextInt()));
                 }
-                if(type == 'R'){
+                if (type == 'R') {
                     heroes.add(new Rogue(type, fs.nextInt(), fs.nextInt()));
                 }
-                if(type == 'K'){
+                if (type == 'K') {
                     heroes.add(new Knight(type, fs.nextInt(), fs.nextInt()));
                 }
-                if(type == 'P'){
+                if (type == 'P') {
                     heroes.add(new Pyromancer(type, fs.nextInt(), fs.nextInt()));
                 }
             }
             numberOfRounds = fs.nextInt();
-            for(i=0; i<numberOfRounds; i++){
+            for (i = 0; i < numberOfRounds; i++) {
                 moves.add(fs.nextWord());
             }
 
@@ -72,6 +70,6 @@ public class GameInputLoader {
             e1.printStackTrace();
         }
 
-        return new GameInput(lines,columns,map,numberOfHeroes,heroes,numberOfRounds,moves);
+        return new GameInput(lines, columns, map, numberOfHeroes, heroes, numberOfRounds, moves);
     }
 }

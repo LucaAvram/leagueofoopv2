@@ -20,114 +20,110 @@ public class Wizard extends Hero {
     private static final int XPDIV = 50;
     private int level;
 
-    public Wizard(char type, int x, int y) {
+    public Wizard(final char type, final int x, final int y) {
         super(type, x, y);
     }
 
-    public int Drain(Hero hero, char terrain){
-        float starting_total_percent =  DR_BASEPERCENT + DR_PERLVL * this.getLevel();
-        float total_percent = 0;
-        if(hero.getType() == 'W'){
-            total_percent = starting_total_percent * IFWIZARD_DR;
+    public final int drain(final Hero hero, final char terrain) {
+        float startingTotalPercent =  DR_BASEPERCENT + DR_PERLVL * this.getLevel();
+        float totalPercent = 0;
+        if (hero.getType() == 'W') {
+            totalPercent = startingTotalPercent * IFWIZARD_DR;
         }
-        if(hero.getType() == 'R'){
-            total_percent = starting_total_percent * IFROGUE_DR;
+        if (hero.getType() == 'R') {
+            totalPercent = startingTotalPercent * IFROGUE_DR;
         }
-        if(hero.getType() == 'P'){
-            total_percent = starting_total_percent * IFPYRO_DR;
+        if (hero.getType() == 'P') {
+            totalPercent = startingTotalPercent * IFPYRO_DR;
         }
-        if(hero.getType() == 'K'){
-            total_percent = starting_total_percent * IFKNIGHT_DR;
+        if (hero.getType() == 'K') {
+            totalPercent = startingTotalPercent * IFKNIGHT_DR;
         }
-        float damage = total_percent * Math.min(BASEHP_DEFAULT * hero.getMaxHP(),
+        float damage = totalPercent * Math.min(BASEHP_DEFAULT * hero.getMaxHP(),
                 hero.getCurrentHP());
-        if(terrain == 'D'){
+        if (terrain == 'D') {
             damage = damage * TERRAIN_BONUS;
         }
         return Math.round(damage);
 
     }
-    public int Deflect(Hero hero, char terrain){
-        float total_percent = DEF_BASE + this.getLevel() * DEF_PERLEVEL;
-        float damage = total_percent * hero.BaseDamageCalculator(terrain);
+    public final int deflect(final Hero hero, final char terrain) {
+        float totalPercent = DEF_BASE + this.getLevel() * DEF_PERLEVEL;
+        float damage = totalPercent * hero.baseDamageCalculator(terrain);
 
-        if(hero.getType() == 'R'){
+        if (hero.getType() == 'R') {
             damage = damage * IFROGUE_DEF;
         }
-        if(hero.getType() == 'P'){
+        if (hero.getType() == 'P') {
             damage = damage * IFPYRO_DEF;
         }
-        if(hero.getType() == 'K'){
+        if (hero.getType() == 'K') {
             damage = damage * IFKNIGHT_DEF;
         }
-        if(terrain == 'D'){
+        if (terrain == 'D') {
             damage = damage * TERRAIN_BONUS;
         }
 
         return Math.round(damage);
     }
 
-    public void isAttackedBy(Hero hero, char terrain) {
+    public final void isAttackedBy(final Hero hero, final char terrain) {
         hero.attack(this, terrain);
     }
 
-    public void attack(Wizard wizard, char terrain){
+    public final void attack(final Wizard wizard, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = Drain(wizard, terrain);
-        if(damage > wizard.getCurrentHP()){
+        damage = drain(wizard, terrain);
+        if (damage > wizard.getCurrentHP()) {
             wizard.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
 
 
-        }
-        else{
+        } else {
             wizard.setCurrentHP(wizard.getCurrentHP() - damage);
         }
     }
-    public void attack(Rogue rogue, char terrain){
+    public final void attack(final Rogue rogue, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = Drain(rogue, terrain) + Deflect(rogue, terrain);
-        if(damage > rogue.getCurrentHP()){
+        damage = drain(rogue, terrain) + deflect(rogue, terrain);
+        if (damage > rogue.getCurrentHP()) {
             rogue.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, rogue));
 
-        }
-        else{
+        } else {
             rogue.setCurrentHP(rogue.getCurrentHP() - damage);
         }
     }
-    public void attack(Knight knight, char terrain){
+    public final void attack(final Knight knight, final char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
-        damage = Drain(knight, terrain) + Deflect(knight, terrain);
-        if(damage > knight.getCurrentHP()){
+        damage = drain(knight, terrain) + deflect(knight, terrain);
+        if (damage > knight.getCurrentHP()) {
             knight.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, knight));
 
-        }
-        else{
+        } else {
             knight.setCurrentHP(knight.getCurrentHP() - damage);
         }
     }
-    public void attack(Pyromancer pyromancer, char terrain){
+    public final void attack(final Pyromancer pyromancer, final char terrain) {
         XPAward xpAward = new XPAward();
         int damage = 0;
-        damage = Drain(pyromancer, terrain) + Deflect(pyromancer, terrain);
-        if(damage > pyromancer.getCurrentHP()){
+        damage = drain(pyromancer, terrain) + deflect(pyromancer, terrain);
+        if (damage > pyromancer.getCurrentHP()) {
             pyromancer.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, pyromancer));
 
-        }
-        else{
+        } else {
             pyromancer.setCurrentHP(pyromancer.getCurrentHP() - damage);
         }
     }
-    public int BaseDamageCalculator(char land){
+    public final int baseDamageCalculator(final char land) {
         return 0;
     }
 
