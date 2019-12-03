@@ -1,6 +1,6 @@
 package hero;
 
-import Game.XPAward;
+import game.XPAward;
 
 public class Rogue extends Hero {
     private int BackStabCounter = 0;
@@ -22,7 +22,9 @@ public class Rogue extends Hero {
     private static final int rounds_WOODS = 6;
     private static final int rounds_NORMAl = 3;
     private int RecentCrit = 0;
-
+    private static final int XPTOBEAT = 250;
+    private static final int XPDIV = 50;
+    private int level;
     public Rogue(char type, int x, int y) {
         super(type, x, y);
     }
@@ -89,6 +91,7 @@ public class Rogue extends Hero {
         if(damage > wizard.getCurrentHP()){
             wizard.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
+
 
             return;
         }

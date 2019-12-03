@@ -1,11 +1,10 @@
 package main;
 
-import Game.Game;
+import game.Game;
 import hero.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -16,7 +15,7 @@ public class Main {
 
 
         Game game = new Game();
-        game.GameStart(gameInput.getHeroes(),gameInput.getMap(),gameInput.getMoves(),gameInput.getNumberOfRounds(),
+        game.gameStart(gameInput.getHeroes(),gameInput.getMap(),gameInput.getMoves(),gameInput.getNumberOfRounds(),
                 gameInput.getNumberOfHeroes(), args);
 
 

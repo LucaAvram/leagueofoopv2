@@ -60,7 +60,7 @@ public class GameInputLoader {
                 }
             }
             numberOfRounds = fs.nextInt();
-            for(i=0; i<numberOfHeroes; i++){
+            for(i=0; i<numberOfRounds; i++){
                 moves.add(fs.nextWord());
             }
 

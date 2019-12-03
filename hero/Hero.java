@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Hero {
+
     private char type;
     private int x;
     private int y;
@@ -15,6 +16,8 @@ public abstract class Hero {
     private int isSlammed ; // 0 - yes/no
     private int[] isIgnited ;  // 0 - yes/no , 1 - damage, 2 - time left
     private boolean isDead;
+
+
 
 
     public Hero(char type,int x,int y) {
@@ -29,7 +32,7 @@ public abstract class Hero {
         isParalysed = new int[3];
         isSlammed = 0;
         isIgnited = new int[3];
-        isDead= false;
+        isDead = false;
     }
 
     public char getType() {
@@ -114,6 +117,14 @@ public abstract class Hero {
 
     public void setMaxHP(int maxHP) {
         MaxHP = maxHP;
+    }
+
+    public void LevelUP(int level){
+        HeroFactory info = HeroFactory.getInstance();
+        this.setLevel(this.getLevel() + level );
+            this.setMaxHP( this.getMaxHP() + level * info.getHP_perLevel(this.getType()));
+        this.setCurrentHP(this.getMaxHP());
+
     }
 
     public void setDead(boolean isDead){

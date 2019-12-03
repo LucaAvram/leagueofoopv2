@@ -1,14 +1,12 @@
 package hero;
 
-import Game.XPAward;
-
-import javax.imageio.ImageTranscoder;
+import game.XPAward;
 
 public class Knight extends Hero {
     private static final float HP_LIMIT = 0.2f;
     private static final float LEVEL_MULTIPIER = 0.01f;
     private static final float EXECUTE_BASEDAMAGE = 200;
-    private static final float EXECUTE_DMGPERLVL = 30;
+    private static final float EXECUTEDMGPERLVL = 30;
     private static final float SLAM_BASEDAMAGE = 100;
     private static final float SLAM_DMGPERLEVEL = 40;
     private static final float IFWIZARD_EXEC = 0.8f;
@@ -20,7 +18,9 @@ public class Knight extends Hero {
     private static final float IFKNIGHT_SLAM = 1.2f;
     private static final float IFPYRO_SLAM = 0.9f;
     private static final float TERRAIN_BONUS = 1.15f;
-
+    private static final int XPTOBEAT = 250;
+    private static final int XPDIV = 50;
+    private int level;
 
 
     public Knight(char type, int x, int y) {
@@ -42,7 +42,7 @@ public class Knight extends Hero {
             return hero.getCurrentHP();
         }
 
-        float starting_damage = EXECUTE_BASEDAMAGE + this.getLevel()*EXECUTE_DMGPERLVL;
+        float starting_damage = EXECUTE_BASEDAMAGE + this.getLevel()* EXECUTEDMGPERLVL;
         float final_damage = 0;
         if(hero.getType() == 'W'){
             final_damage = starting_damage * IFWIZARD_EXEC;
@@ -91,6 +91,7 @@ public class Knight extends Hero {
         if(damage >= wizard.getCurrentHP()){
             wizard.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, wizard));
+
             return;
         }
         else{
@@ -147,7 +148,7 @@ public class Knight extends Hero {
         pyromancer.setIsSlammed(1);
     }
     public int BaseDamageCalculator(char terrain){
-        float baseDamage1 = EXECUTE_BASEDAMAGE + EXECUTE_DMGPERLVL * this.getLevel();
+        float baseDamage1 = EXECUTE_BASEDAMAGE + EXECUTEDMGPERLVL * this.getLevel();
         if(terrain == 'L') {
             baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }

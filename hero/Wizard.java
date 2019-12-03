@@ -1,6 +1,6 @@
 package hero;
 
-import Game.XPAward;
+import game.XPAward;
 
 public class Wizard extends Hero {
     private static final float DR_BASEPERCENT = 0.2f;
@@ -16,7 +16,9 @@ public class Wizard extends Hero {
     private static final float IFKNIGHT_DEF = 1.4f;
     private static final float IFPYRO_DEF = 1.3f;
     private static final float TERRAIN_BONUS = 1.1f;
-
+    private static final int XPTOBEAT = 250;
+    private static final int XPDIV = 50;
+    private int level;
 
     public Wizard(char type, int x, int y) {
         super(type, x, y);

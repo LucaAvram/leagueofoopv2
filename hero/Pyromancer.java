@@ -1,6 +1,6 @@
 package hero;
 
-import Game.XPAward;
+import game.XPAward;
 
 public class Pyromancer extends Hero {
     private static final float FIREBLAST_BASEDAMAGE = 350;
@@ -19,6 +19,9 @@ public class Pyromancer extends Hero {
     private static final float IFPYRO_IGN = 0.9f;
     private static final float TERRAIN_BONUS = 1.25f;
     private static final int IGNITE_ROUNDS = 2;
+    private static final int XPTOBEAT = 250;
+    private static final int XPDIV = 50;
+    private int level;
 
     public Pyromancer(char type, int x, int y) {
         super(type, x, y);
@@ -115,17 +118,16 @@ public class Pyromancer extends Hero {
         igniteSet[2] = IGNITE_ROUNDS;
         rogue.setIsIgnited(igniteSet);
     }
-    public void attack(Knight knight, char terrain){
+    public void attack(Knight knight, char terrain) {
         XPAward xpAward = new XPAward();
 
         int damage = 0;
         damage = FireBlast(knight, terrain) + Ignite(knight, terrain);
-        if(damage >= knight.getCurrentHP()){
+        if (damage >= knight.getCurrentHP()) {
             knight.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, knight));
 
-        }
-        else{
+        } else {
             knight.setCurrentHP(knight.getCurrentHP() - damage);
         }
         int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFKNIGHT_IGN);
@@ -140,12 +142,12 @@ public class Pyromancer extends Hero {
 
         int damage = 0;
         damage = FireBlast(pyromancer, terrain) + Ignite(pyromancer, terrain);
-        if(damage >= pyromancer.getCurrentHP()){
+        if (damage >= pyromancer.getCurrentHP()) {
             pyromancer.setDead(true);
             this.setCurrentXP(this.getCurrentXP() + xpAward.giveXP(this, pyromancer));
 
-        }
-        else{
+
+        } else {
             pyromancer.setCurrentHP(pyromancer.getCurrentHP() - damage);
         }
         int igniteDamage = Math.round((IGNITE_OVERTIME + IGNITE_DMGPERLEVEL * this.getLevel()) * IFPYRO_IGN);
@@ -155,14 +157,14 @@ public class Pyromancer extends Hero {
         igniteSet[2] = IGNITE_ROUNDS;
         pyromancer.setIsIgnited(igniteSet);
     }
-    public int BaseDamageCalculator(char terrain){
+    public int BaseDamageCalculator(char terrain) {
         float baseDamage1 = FIREBLAST_BASEDAMAGE + FIREBLAST_DMGPERLVL * this.getLevel();
         if( terrain == 'V') {
             baseDamage1 = baseDamage1 * TERRAIN_BONUS;
         }
         baseDamage1 = Math.round(baseDamage1);
         float baseDamage2 = IGNITE_BASEDAMAGE + IGNITE_DMGPERLEVEL * this.getLevel();
-        if( terrain == 'V') {
+        if (terrain == 'V') {
             baseDamage2 = baseDamage2 * TERRAIN_BONUS;
         }
         baseDamage2 = Math.round(baseDamage2);
